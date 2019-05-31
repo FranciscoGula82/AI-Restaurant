@@ -9,7 +9,6 @@ import {
 import Header from './components/headerComponent/header';
 import Footer from './components/footerComponent/footer';
 import Homepage from './components/pages/homePage';
-import Products from './components/pages/products';
 import Menu from './components/pages/menu_aux';
 import Settings from './components/pages/settings';
 
@@ -27,13 +26,38 @@ class App extends Component {
       volume: 50,
       isPlate: false,
       waitress: 'hidden',
-      sidebar_layout: 'visible',
-      normal_layout: 'hidden',
+      menu_tabs: ['visible', 'hidden', 'hidden', 'hidden', 'hidden', 'hidden'],
+      order_list: [],
+      order: 'hidden',
+      food_ready: 'hidden',
+      pay: 0.4,
+      sidebar_layout: 'hidden',
+      normal_layout: 'visible',
+      meals: [['Couvert', 'Garlic Bread'], ['Cesar Salad', 'Salmon Salad'], ['Hamburguer', 'Fried Chicken'],
+        ['Coddish', 'Tuna'], ['Cheesecake', 'Chocolate Cake'], ['Water', 'Coke']],
     }
+
+    this.initOrder();
   }
+
+  initOrder(){
+    var i;
+    var j;
+    let order_list = this.state.order_list;
+    for(i = 0; i < 6; i++){
+      var aux = [];
+      for(j = 0; j < 2; j++){
+        aux.push(0);
+      }
+      order_list.push(aux)
+    }
+    this.setState({order_list});
+  }
+
 
   upMyState(newState){
     this.setState(newState);
+
   }
 
   getMyState(){
@@ -42,30 +66,30 @@ class App extends Component {
 
   updateTemps(){
     console.log(this.state);
-    while(this.state.air_temp != this.state.actual_air_temp 
-      || this.state.seat_temp != this.state.actual_seat_temp){
-      if(this.state.air_temp != this.state.actual_air_temp){
+    while(this.state.air_temp !== this.state.actual_air_temp 
+      || this.state.seat_temp !== this.state.actual_seat_temp){
+      if(this.state.air_temp !== this.state.actual_air_temp){
         console.log("oi");
         let diff = this.state.air_temp - this.state.actual_air_temp;
         console.log(diff);
         if(diff > 0){
-          this.state.actual_air_temp++
-          setTimeout(() => this.upMyState(this.state), 8000);
+          setTimeout(() => this.setState({
+            actual_air_temp: this.state.actual_air_temp + 1,}), 8000);
         }
         else if(diff < 0){
-          this.state.actual_air_temp--
-          setTimeout(() => this.upMyState(this.state), 8000);
+          setTimeout(() => this.setState({
+            actual_air_temp: this.state.actual_air_temp - 1,}), 8000);
         }
       }
-      if(this.state.seat_temp != this.state.actual_seat_temp){
+      if(this.state.seat_temp !== this.state.actual_seat_temp){
         let diff = this.state.seat_temp - this.state.actual_seat_temp;
         if(diff > 0){
-          this.state.actual_seat_temp++
-          setTimeout(() => this.upMyState(this.state), 8000);
+          setTimeout(() => this.setState({
+            actual_air_temp: this.state.actual_seat_temp + 1,}), 8000);
         }
         else if(diff < 0){
-          this.state.actual_seat_temp--
-          setTimeout(() => this.upMyState(this.state), 8000);
+          setTimeout(() => this.setState({
+            actual_air_temp: this.state.actual_seat_temp - 1,}), 8000);
         }   
       }
     }
@@ -76,7 +100,7 @@ class App extends Component {
         <Router>
         <div className="App">
 
-          <Header generalState={this.state} updateMyState={this.upMyState.bind(this)}/>
+          <Header generalState={this.state} upMyState={this.upMyState.bind(this)} getMyState={this.getMyState.bind(this)}/>
 
             <Route exact path='/' render={(props) => <Homepage {...props} upMyState={this.upMyState.bind(this)} 
                   getMyState={this.getMyState.bind(this)}/>}/>

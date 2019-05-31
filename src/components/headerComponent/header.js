@@ -6,10 +6,10 @@ import {
 class Header extends Component {
   constructor(props){
     super(props);
-    console.log(this.props);
-
+    this.state = this.props.generalState;
   }
   render(){
+    this.state = this.props.getMyState();
     return (
       <header>
         
@@ -19,6 +19,9 @@ class Header extends Component {
 
         <div className="back-home">   
           <Link to="/"><i className="fas fa-home fa-3x"></i></Link> 
+        </div>
+        <div className="waitress-msg" style={{visibility:this.state.waitress}}>
+          A waitress is on his way!
         </div>
       	{/*<nav>
       		<ul>

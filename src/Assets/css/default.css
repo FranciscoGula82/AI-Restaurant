@@ -111,6 +111,24 @@ header nav ul li a{
 	z-index: 2;
 }
 
+.waitress-msg{
+	position: fixed;
+	top: 5px;
+	left: 10%;
+
+	text-align: center;
+	font-size: 30px;
+	line-height: 1;
+	color: black;
+
+	height: 80px;
+	width: 300px;
+	background-image: linear-gradient(-30deg, #ff9933, #ffbf80);
+	padding-top: 10px;
+	z-index: 20px;
+	border-radius: 5px;
+}
+
 /*---------------------------------------------*/
 /*----------------FONT_AWESOME-----------------*/
 
@@ -191,6 +209,8 @@ header nav ul li a{
 	font-size: 30px;
 	right: 3%;
     bottom: 10%;
+    cursor: pointer;
+    color: white;
 }
 
 .pay a{
@@ -226,6 +246,8 @@ header nav ul li a{
 	font-size: 30px;
 	left: 75%;
     top: 200px;
+    width: 300px;
+    cursor: pointer;
 }
 
 .order i{
@@ -249,6 +271,7 @@ header nav ul li a{
 	left: 73%;
     top: 320px;
     cursor: pointer;
+    width: 300px;
 }
 
 .waitress:hover{
@@ -267,19 +290,7 @@ header nav ul li a{
   	color: black;
 }
 
-.waitress-msg{
-	position: fixed;
 
-	top: 5px;
-	left: 10%;
-	text-align: center;
-	font-size: 30px;
-	height: 80px;
-	width: 300px;
-	background-image: linear-gradient(-45deg, #ffb366, lightgrey);
-	padding: 20px;
-	z-index: 20px;
-}
 
 
 /*---------------------------------------*/
@@ -311,46 +322,98 @@ header nav ul li a{
 
 }
 .foodIsReady{
-	color: white;
+	color: black;
 	position: fixed;
 	bottom: 20px;
 	left: 20px;
-	background-image: linear-gradient(to right, #990000 , #660000);
+	background-image: linear-gradient(to right, #ff6666 , #ffb3b3);
 	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 5px;
 	border: 1px solid white;
 }
 
 .foodFinished{
-	color: white;
+	color: black;
 	position: fixed;
 	bottom: 20px;
 	left: 160px;
-	background-image: linear-gradient(to right, #990000 , #660000);
+	background-image: linear-gradient(to right, #ff6666 , #ffb3b3);
 	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 5px;
 	border: 1px solid white;
 }
 
 .drinkFinished{
-	color: white;
+	color: black;
 	position: fixed;
 	bottom: 20px;
 	left: 300px;
-	background-image: linear-gradient(to right, #990000 , #660000);
+	background-image: linear-gradient(to right, #ff6666 , #ffb3b3);
 	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 5px;
 	border: 1px solid white;
 }
 
+/*------------------------------------------*/
+/*--------------ORDER LIST------------------*/
 
+.orderList{
+	position: fixed;
+	left: 25%;
+	top: 17%;
+
+	width: 50%;
+	height: 80%;
+	
+	font-size: 40px;
+	text-align: center;
+	padding-top: 20px
+	;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-image: linear-gradient(-30deg, #fff2e6, #ffe6e6);
+	border-radius: 5px;
+	border: 5px solid grey;
+	border-width: 2px;
+	z-index: 20;
+}
+
+.orderList .meals{
+	height: 30%;
+}
+
+.orderList i{
+	position: absolute;
+	top: 1%;
+	left: 1%;
+	cursor: pointer;
+}
+
+.payButton{
+	position: absolute;
+	width: 13%;
+	height: 10%;
+	padding-top: 7px;
+	bottom: 3%;
+	right: 1%;
+	text-align: center;
+	border-radius: 4px;
+	cursor: pointer;
+	opacity: 1;
+	background-image: linear-gradient(-30deg, #e6fff2, #adebad);
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	opacity: 0.4;
+}
+
+.ready{
+	color: #00b33c;
+	font-size: 10px;
+	bottom: 10%;
+
+}
 
 /*00000000000000000000000000000000000000000000000000000000000000
 00000000000000000000          MENU          00000000000000000000
 00000000000000000000000000000000000000000000000000000000000000*/
-
-.menu_tabs{
-}
 
 .tablink {
   background-color: #555;
@@ -371,17 +434,90 @@ header nav ul li a{
 	transition: .4s ease-in-out;
 }
 
-
-/* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
 	position: fixed;
 	top: 130px;
-	width: 96.6%;
-	color: white;
-	background-image:linear-gradient(-45deg, #ffcccc, #ffb3b3);
-	padding: 100px 20px;
+	width: 96.68%;
 	height: 100%;
+
+	text-align: center;
+	color: white;
+
+
+	background-image:linear-gradient(-45deg, #ffcccc, #ff9999);
+	padding: 25px 20px;
 	z-index: -1;
+}
+
+.tabcontent h3{
+	font-size: 40px;
+}
+
+.mealTab{
+	position: relative;
+	top: 2%;
+	left: 15%;
+	width: 70%;
+	height: 65%;
+
+	background-color: #777;
+	border-radius: 4px;
+
+	z-index: 2;
+}
+
+.meals{
+	position: relative;
+	top: 1%;
+	left: 2%;
+	width: 96%;
+	height: 50%;
+	margin-top: 10px;
+
+	font-size: 40px;
+	color: black;
+	text-align: left;
+	padding: 8% 20px;
+	border-radius: 6px;
+	background-color: white;
+}
+
+.meals .fa-minus-square{
+	position: absolute;
+	cursor: pointer;
+	left: 40%;
+	top: 40%;
+}
+
+.meals .fa-plus-square{
+	position: absolute;
+	cursor: pointer;
+	left: 50%;
+	top: 40%;
+}
+
+.meals img{
+	position: absolute;
+	right: 1.5%;
+	top: 5%;
+	width: 35%;
+	height: 90%;
+
+	border-radius: 6px;
+}
+
+.mealNumber{
+	position: absolute;
+	left: 44.75%;
+	top: 40%;
+	width: 40px;
+	height: 40px;
+
+	text-align: center;
+	padding-top: 7px;
+	border-radius: 7px;
+	
+	background-image:linear-gradient(-45deg, #b3c4ff, #e6ebff);
 }
 
 
@@ -433,6 +569,8 @@ header nav ul li a{
 }
 
 /*--------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+/*-------------------------------NORMAL--------------------------------------*/
 .air-temp{
 	position: -webkit-sticky;
     position: sticky;
@@ -510,6 +648,21 @@ header nav ul li a{
 	font-size: 50px;
 }
 
+.seat-temp .fa-minus-square{
+	cursor: pointer;
+	color: white;
+	position: absolute;
+	left: 140px;
+	top: 40%;
+}
+
+.seat-temp .fa-plus-square{
+	cursor: pointer;
+	color: white;
+	position: absolute;
+	left: 287px;
+	top: 40%;
+}
 
 /*--------------------------------------------------------*/
 .volume{
@@ -567,8 +720,8 @@ header nav ul li a{
 /*--------------------------------------------------------*/
 
 
-/*--------------------------------------------------------*/
-/*----------------------SIDE------------------------------*/
+/*---------------------------------------------------------------------------*/
+/*-------------------------------SIDE----------------------------------------*/
 .air-temp-side{
 	position: -webkit-sticky;
     position: sticky;

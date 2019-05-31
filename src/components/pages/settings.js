@@ -34,7 +34,7 @@ class Settings extends Component {
 
   changeAirTemp(diff){
     let air_temp = this.state.air_temp;
-    if(diff == "-")
+    if(diff === "-")
       air_temp--;   
     else
       air_temp++;
@@ -46,7 +46,7 @@ class Settings extends Component {
 
   changeSeatTemp(diff){
     let seat_temp = this.state.seat_temp;
-    if(diff == "-")
+    if(diff === "-")
       seat_temp--;   
     else
       seat_temp++;
@@ -65,7 +65,7 @@ class Settings extends Component {
     let diff_air = this.state.air_temp - this.state.actual_air_temp;
     let diff_seat = this.state.seat_temp - this.state.actual_seat_temp;
 
-    while(diff_air != 0|| diff_seat != 0){
+    while(diff_air !== 0|| diff_seat !== 0){
       this.updateTempsAux(diff_air, diff_seat);
       
       if(diff_air > 0)
@@ -86,7 +86,7 @@ class Settings extends Component {
   }
 
   updateTempsAux2(diff_air, diff_seat){
-    if(diff_air != 0){
+    if(diff_air !== 0){
       console.log("mequie2");
       let actual_air_temp = this.state.actual_air_temp;
       if(diff_air > 0)
@@ -95,7 +95,7 @@ class Settings extends Component {
         actual_air_temp--;
       this.setState({actual_air_temp});
     }
-    if(diff_seat != 0){
+    if(diff_seat !== 0){
       let actual_seat_temp = this.state.actual_seat_temp;
       if(diff_seat > 0)
         actual_seat_temp++

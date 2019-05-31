@@ -2,72 +2,55 @@ import React, {Component} from 'react';
 import {
   Link
 } from 'react-router-dom'
-
-
+import couvert from './couvert.png';
+import water from './water.jpg';
 
 
 class Menu extends Component {
 	constructor(props) {
     super(props);
-    this.foodList = ['hidden', 'hidden', 'hidden', 'hidden', 'hidden', 'hidden']
-    this.starter = 'hidden';
-    this.salad = 'hidden';
-    this.meat = 'hidden';
-    this.fish = 'hidden';
-    this.desert = 'hidden';
-    this.drinks = 'hidden';
-    this.nowOpen = null;
+    this.state = this.props.getMyState();
+    console.log(this.state);
   }
 
-	handleClick2(pageName) {
-	  if(this.nowOpen != null){
-      this.nowOpen = 'hidden';
-    }
+  updateProps(){
+    console.log(this.state);
+    this.props.upMyState(this.state);
+  }
 
-    if(pageName == "starter"){
-      this.starter = 'visible';
-      this.nowOpen = 'starter';
-    }
-    else if(pageName == "salad"){
-      this.salad = 'visible';
-      this.nowOpen = 'salad';
-    }
-    else if(pageName == "meat"){
-      this.meat = 'visible';
-      this.nowOpen = 'meat';
-    }
-    else if(pageName == "fish"){
-      this.fish = 'visible';
-      this.nowOpen = 'fish';
-    }
-    else if(pageName == "desert"){
-      this.desert = 'visible';
-      this.nowOpen = 'desert';
-    }
-    else if(pageName == "drinks"){
-      this.desert = 'visible';
-      this.nowOpen = 'desert';
-    }
-    this.forceUpdate();
-	}
-
-  handleClick(n) {
+  dropMenu(n) {
     var i;
-    for(i = 0; i < this.foodList.length; i++){
-      if(this.foodList[i] == 'visible'){
-        this.foodList[i] = 'hidden';
+    let menu_tabs = this.state.menu_tabs; 
+    for(i = 0; i < menu_tabs.length; i++){
+      if(menu_tabs[i] === 'visible'){
+        menu_tabs[i] = 'hidden';
         break;
       }
     }
-    this.foodList[n] = 'visible';
-    console.log(this.foodList);
-    this.forceUpdate();
-
+    menu_tabs[n] = 'visible';
+    this.setState({menu_tabs})
+    setTimeout(this.updateProps.bind(this), 1000);
   }
 	
+  upMealNumber(i, j, diff){
+    console.log(i);
+    console.log(j);
+    console.log(diff);
+    let order_list = this.state.order_list;
+
+    if(diff === "+")
+      order_list[i][j]++
+    else if(order_list[i][j] > 0)
+      order_list[i][j]--
+
+    this.setState({order_list})
+    setTimeout(this.updateProps.bind(this), 1000);
+
+  }
 
 	
   render(){
+    const values = this.state;
     return (
       <div className="container-fluid">
         <nav className="col-md-2 d-none d-md-block bg-light sidebar">
@@ -98,70 +81,122 @@ class Menu extends Component {
         </nav>
         
 				
-        <button className="tablink" onClick={() => this.handleClick(0)}>Starters</button>
-        <button className="tablink" onClick={() => this.handleClick(1)}>Salads</button>
-        <button className="tablink" onClick={() => this.handleClick(2)}>Meat</button>
-        <button className="tablink" onClick={() => this.handleClick(3)}>Fish</button>
-        <button className="tablink" onClick={() => this.handleClick(4)}>Deserts</button>
-        <button className="tablink" onClick={() => this.handleClick(5)}>Drinks</button>
+        <button className="tablink" onClick={() => this.dropMenu(0)}>Starters</button>
+        <button className="tablink" onClick={() => this.dropMenu(1)}>Salads</button>
+        <button className="tablink" onClick={() => this.dropMenu(2)}>Meat</button>
+        <button className="tablink" onClick={() => this.dropMenu(3)}>Fish</button>
+        <button className="tablink" onClick={() => this.dropMenu(4)}>Deserts</button>
+        <button className="tablink" onClick={() => this.dropMenu(5)}>Drinks</button>
 
-        <div className="tabcontent" style={{visibility:this.foodList[0]}}>
-				  <h3>Starter</h3>
-				  <p>Home is where the heart is..</p>
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[0]}}>
+				  <h3>Starters</h3>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+              {values.meals[0][0]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(0, 0, "-")}></i>
+              <div className="mealNumber">{values.order_list[0][0]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(0, 0, "+")}></i>
+              <img src={couvert} alt="couvert"/>
+            </div>
+            <div className="meals">
+              {values.meals[0][1]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(0, 1, "-")}></i>
+              <div className="mealNumber">{values.order_list[0][1]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(0, 1, "+")}></i>
+            </div>
+          </div>
 				</div>
-        <div className="tabcontent" style={{visibility:this.foodList[1]}}>
+
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[1]}}>
           <h3>Salads</h3>
-          <p>Home is where the heart is..</p>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+              {values.meals[1][0]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(1, 0, "-")}></i>
+              <div className="mealNumber">{values.order_list[1][0]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(1, 0, "+")}></i>
+            </div>
+            <div className="meals">
+              {values.meals[1][1]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(1, 1, "-")}></i>
+              <div className="mealNumber">{values.order_list[1][1]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(1, 1, "+")}></i>
+            </div>
+          </div>
         </div>
-        <div className="tabcontent" style={{visibility:this.foodList[2]}}>
+
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[2]}}>
           <h3>Meat</h3>
-          <p>Home is where the heart is..</p>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+                {values.meals[2][0]}
+                <i className="far fa-minus-square" onClick={() => this.upMealNumber(2, 0, "-")}></i>
+                <div className="mealNumber">{values.order_list[2][0]}</div>
+                <i className="far fa-plus-square" onClick={() => this.upMealNumber(2, 0, "+")}></i>
+              </div>
+              <div className="meals">
+                {values.meals[2][1]}
+                <i className="far fa-minus-square" onClick={() => this.upMealNumber(2, 1, "-")}></i>
+                <div className="mealNumber">{values.order_list[2][1]}</div>
+                <i className="far fa-plus-square" onClick={() => this.upMealNumber(2, 1, "+")}></i>
+              </div>
+          </div>
         </div>
-        <div className="tabcontent" style={{visibility:this.foodList[3]}}>
+
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[3]}}>
           <h3>Fish</h3>
-          <p>Home is where the heart is..</p>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+              {values.meals[3][0]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(3, 0, "-")}></i>
+              <div className="mealNumber">{values.order_list[3][0]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(3, 0, "+")}></i>
+            </div>
+            <div className="meals">
+              {values.meals[3][1]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(3, 1, "-")}></i>
+              <div className="mealNumber">{values.order_list[3][1]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(3, 1, "+")}></i>
+            </div>
+          </div>
         </div>
-        <div className="tabcontent" style={{visibility:this.foodList[4]}}>
+
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[4]}}>
           <h3>Desert</h3>
-          <p>Home is where the heart is..</p>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+              {values.meals[4][0]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(4, 0, "-")}></i>
+              <div className="mealNumber">{values.order_list[4][0]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(4, 0, "+")}></i>
+            </div>
+            <div className="meals">
+              {values.meals[4][1]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(4, 1, "-")}></i>
+              <div className="mealNumber">{values.order_list[4][1]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(4, 1, "+")}></i>
+            </div>
+          </div>
         </div>
-        <div className="tabcontent" style={{visibility:this.foodList[5]}}>
+
+        <div className="tabcontent" style={{visibility:this.state.menu_tabs[5]}}>
           <h3>Drinks</h3>
-          <p>Home is where the heart is..</p>
+          <div className="mealTab overflow-auto">
+            <div className="meals">
+              {values.meals[5][0]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(5, 0, "-")}></i>
+              <div className="mealNumber">{values.order_list[5][0]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(5, 0, "+")}></i>
+              <img src={water} alt="water"/>
+            </div>
+            <div className="meals">
+              {values.meals[5][1]}
+              <i className="far fa-minus-square" onClick={() => this.upMealNumber(5, 1, "-")}></i>
+              <div className="mealNumber">{values.order_list[5][1]}</div>
+              <i className="far fa-plus-square" onClick={() => this.upMealNumber(5, 1, "+")}></i>
+            </div>
+          </div>
         </div>
-
-        {/*<button className="tablink" onClick={() => this.handleClick("starter")}>Starters</button>
-        <button className="tablink" onClick={() => this.handleClick("salad")}>Salads</button>
-        <button className="tablink" onClick={() => this.handleClick("meat")}>Meat</button>
-        <button className="tablink" onClick={() => this.handleClick("fish")}>Fish</button>
-        <button className="tablink" onClick={() => this.handleClick("desert")}>Deserts</button>
-        <button className="tablink" onClick={() => this.handleClick("drinks")}>Drinks</button>
-
-        <div className="tabcontent" style={{visibility:this.starter}}>
-          <h3>Starter</h3>
-          <p>Home is where the heart is..</p>
-        </div>
-        <div className="tabcontent" style={{visibility:this.salad}}>
-          <h3>Salads</h3>
-          <p>Home is where the heart is..</p>
-        </div>
-        <div className="tabcontent" style={{visibility:this.meat}}>
-          <h3>Meat</h3>
-          <p>Home is where the heart is..</p>
-        </div>
-        <div className="tabcontent" style={{visibility:this.fish}}>
-          <h3>Fish</h3>
-          <p>Home is where the heart is..</p>
-        </div>
-        <div className="tabcontent" style={{visibility:this.desert}}>
-          <h3>Desert</h3>
-          <p>Home is where the heart is..</p>
-        </div>
-        <div className="tabcontent" style={{visibility:this.drinks}}>
-          <h3>Drinks</h3>
-          <p>Home is where the heart is..</p>
-        </div>*/}
-
 				
       </div>
     );
